@@ -1,0 +1,33 @@
+﻿@model TodoList_Project.Models.Entity.Tbl_ToDo
+@{
+    ViewBag.Title = "ToDoGetir";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>ToDo Güncelle</h2>
+
+@using (Html.BeginForm("ToDoGetir", "ToDo", FormMethod.Post))
+{
+    <div class="form-group">
+        <div>
+            <label> Başlık</label>
+            @Html.TextBoxFor(t => t.BASLIK, new { @class = "form-control" })
+        </div>
+        <div>
+            <label>Notlar</label>
+            @Html.TextBoxFor(t => t.NOTLAR, new { @class = "form-control" })
+        </div>
+        <div>
+            <label>Tarih</label>
+            @Html.TextBoxFor(t => t.TARIH, new { @class = "form-control" }).
+        </div>
+        <div>
+            <label>Kategori</label>
+            @Html.DropDownListFor(t => t.Tbl_Kategori.ID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+        </div>
+        <div style="margin-top:15px">
+            <button class="btn btn-warning"> Güncelle</button>
+
+        </div>
+    </div>
+}

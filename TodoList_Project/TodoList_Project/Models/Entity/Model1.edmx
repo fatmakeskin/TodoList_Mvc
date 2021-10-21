@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Db_ToDoProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Islem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UYE" Type="int" />
+          <Property Name="ISLEM" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Kategori">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AD" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_ToDo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BASLIK" Type="varchar" MaxLength="50" />
+          <Property Name="NOTLAR" Type="varchar" MaxLength="250" />
+          <Property Name="TARIH" Type="smalldatetime" />
+          <Property Name="KATEGORI" Type="int" />
+          <Property Name="ISLEM" Type="int" />
+          <Property Name="UYEID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Uye">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AD" Type="varchar" MaxLength="50" />
+          <Property Name="SOYAD" Type="varchar" MaxLength="50" />
+          <Property Name="KULLANICIADI" Type="varchar" MaxLength="15" />
+          <Property Name="MAIL" Type="varchar" MaxLength="50" />
+          <Property Name="SIFRE" Type="varchar" MaxLength="10" />
+          <Property Name="TELEFON" Type="varchar" MaxLength="20" />
+          <Property Name="HAREKET" Type="int" />
+        </EntityType>
+        <Association Name="FK_Tbl_ToDo_Tbl_Islem">
+          <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Islem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="ISLEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ToDo_Tbl_Kategori">
+          <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kategori">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="KATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ToDo_Tbl_Kategori1">
+          <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kategori">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="KATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ToDo_Tbl_Uye">
+          <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Uye">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="UYEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Uye_Tbl_Islem">
+          <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+          <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Islem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Uye">
+              <PropertyRef Name="HAREKET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Db_ToDoProjectModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Islem" EntityType="Self.Tbl_Islem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Kategori" EntityType="Self.Tbl_Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ToDo" EntityType="Self.Tbl_ToDo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Uye" EntityType="Self.Tbl_Uye" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Islem" Association="Self.FK_Tbl_ToDo_Tbl_Islem">
+            <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori" Association="Self.FK_Tbl_ToDo_Tbl_Kategori">
+            <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori1" Association="Self.FK_Tbl_ToDo_Tbl_Kategori1">
+            <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Uye" Association="Self.FK_Tbl_ToDo_Tbl_Uye">
+            <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Uye_Tbl_Islem" Association="Self.FK_Tbl_Uye_Tbl_Islem">
+            <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+            <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Db_ToDoProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Islem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UYE" Type="Int32" />
+          <Property Name="ISLEM" Type="Int32" />
+          <NavigationProperty Name="Tbl_ToDo" Relationship="Self.FK_Tbl_ToDo_Tbl_Islem" FromRole="Tbl_Islem" ToRole="Tbl_ToDo" />
+          <NavigationProperty Name="Tbl_Uye" Relationship="Self.FK_Tbl_Uye_Tbl_Islem" FromRole="Tbl_Islem" ToRole="Tbl_Uye" />
+        </EntityType>
+        <EntityType Name="Tbl_Kategori">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_ToDo" Relationship="Self.FK_Tbl_ToDo_Tbl_Kategori" FromRole="Tbl_Kategori" ToRole="Tbl_ToDo" />
+        </EntityType>
+        <EntityType Name="Tbl_ToDo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BASLIK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOTLAR" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TARIH" Type="DateTime" Precision="0" />
+          <Property Name="KATEGORI" Type="Int32" />
+          <Property Name="ISLEM" Type="Int32" />
+          <NavigationProperty Name="Tbl_Islem" Relationship="Self.FK_Tbl_ToDo_Tbl_Islem" FromRole="Tbl_ToDo" ToRole="Tbl_Islem" />
+          <NavigationProperty Name="Tbl_Kategori" Relationship="Self.FK_Tbl_ToDo_Tbl_Kategori" FromRole="Tbl_ToDo" ToRole="Tbl_Kategori" />
+          <Property Name="UYEID" Type="Int32" />
+          <NavigationProperty Name="Tbl_Uye" Relationship="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye" FromRole="Tbl_ToDo" ToRole="Tbl_Uye" />
+        </EntityType>
+        <EntityType Name="Tbl_Uye">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KULLANICIADI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SIFRE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFON" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HAREKET" Type="Int32" />
+          <NavigationProperty Name="Tbl_Islem" Relationship="Self.FK_Tbl_Uye_Tbl_Islem" FromRole="Tbl_Uye" ToRole="Tbl_Islem" />
+          <NavigationProperty Name="Tbl_ToDo" Relationship="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye" FromRole="Tbl_Uye" ToRole="Tbl_ToDo" />
+        </EntityType>
+        <Association Name="FK_Tbl_ToDo_Tbl_Islem">
+          <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Islem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="ISLEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Uye_Tbl_Islem">
+          <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+          <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Islem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Uye">
+              <PropertyRef Name="HAREKET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ToDo_Tbl_Kategori">
+          <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+          <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kategori">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="KATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Db_ToDoProjectEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tbl_Islem" EntityType="Self.Tbl_Islem" />
+          <EntitySet Name="Tbl_Kategori" EntityType="Self.Tbl_Kategori" />
+          <EntitySet Name="Tbl_ToDo" EntityType="Self.Tbl_ToDo" />
+          <EntitySet Name="Tbl_Uye" EntityType="Self.Tbl_Uye" />
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Islem" Association="Self.FK_Tbl_ToDo_Tbl_Islem">
+            <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Uye_Tbl_Islem" Association="Self.FK_Tbl_Uye_Tbl_Islem">
+            <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+            <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori" Association="Self.FK_Tbl_ToDo_Tbl_Kategori">
+            <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ToDo_Tbl_Uye" Association="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye">
+            <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+            <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Tbl_ToDo_Tbl_Uye">
+          <End Type="Db_ToDoProjectModel.Tbl_Uye" Role="Tbl_Uye" Multiplicity="0..1" />
+          <End Type="Db_ToDoProjectModel.Tbl_ToDo" Role="Tbl_ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Uye">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_ToDo">
+              <PropertyRef Name="UYEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Db_ToDoProjectModelStoreContainer" CdmEntityContainer="Db_ToDoProjectEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Db_ToDoProjectModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Islem">
+            <EntityTypeMapping TypeName="Db_ToDoProjectModel.Tbl_Islem">
+              <MappingFragment StoreEntitySet="Tbl_Islem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UYE" ColumnName="UYE" />
+                <ScalarProperty Name="ISLEM" ColumnName="ISLEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Kategori">
+            <EntityTypeMapping TypeName="Db_ToDoProjectModel.Tbl_Kategori">
+              <MappingFragment StoreEntitySet="Tbl_Kategori">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ToDo">
+            <EntityTypeMapping TypeName="Db_ToDoProjectModel.Tbl_ToDo">
+              <MappingFragment StoreEntitySet="Tbl_ToDo">
+                <ScalarProperty Name="UYEID" ColumnName="UYEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BASLIK" ColumnName="BASLIK" />
+                <ScalarProperty Name="NOTLAR" ColumnName="NOTLAR" />
+                <ScalarProperty Name="TARIH" ColumnName="TARIH" />
+                <ScalarProperty Name="KATEGORI" ColumnName="KATEGORI" />
+                <ScalarProperty Name="ISLEM" ColumnName="ISLEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Uye">
+            <EntityTypeMapping TypeName="Db_ToDoProjectModel.Tbl_Uye">
+              <MappingFragment StoreEntitySet="Tbl_Uye">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="KULLANICIADI" ColumnName="KULLANICIADI" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="SIFRE" ColumnName="SIFRE" />
+                <ScalarProperty Name="TELEFON" ColumnName="TELEFON" />
+                <ScalarProperty Name="HAREKET" ColumnName="HAREKET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

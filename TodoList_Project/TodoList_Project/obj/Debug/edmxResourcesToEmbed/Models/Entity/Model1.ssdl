@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Db_ToDoProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Islem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UYE" Type="int" />
+    <Property Name="ISLEM" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Kategori">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AD" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_ToDo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BASLIK" Type="varchar" MaxLength="50" />
+    <Property Name="NOTLAR" Type="varchar" MaxLength="250" />
+    <Property Name="TARIH" Type="smalldatetime" />
+    <Property Name="KATEGORI" Type="int" />
+    <Property Name="ISLEM" Type="int" />
+    <Property Name="UYEID" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Uye">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AD" Type="varchar" MaxLength="50" />
+    <Property Name="SOYAD" Type="varchar" MaxLength="50" />
+    <Property Name="KULLANICIADI" Type="varchar" MaxLength="15" />
+    <Property Name="MAIL" Type="varchar" MaxLength="50" />
+    <Property Name="SIFRE" Type="varchar" MaxLength="10" />
+    <Property Name="TELEFON" Type="varchar" MaxLength="20" />
+    <Property Name="HAREKET" Type="int" />
+  </EntityType>
+  <Association Name="FK_Tbl_ToDo_Tbl_Islem">
+    <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Islem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="ISLEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_ToDo_Tbl_Kategori">
+    <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Kategori">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="KATEGORI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_ToDo_Tbl_Kategori1">
+    <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Kategori">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="KATEGORI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_ToDo_Tbl_Uye">
+    <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Uye">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="UYEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Uye_Tbl_Islem">
+    <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+    <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Islem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Uye">
+        <PropertyRef Name="HAREKET" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Db_ToDoProjectModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Islem" EntityType="Self.Tbl_Islem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Kategori" EntityType="Self.Tbl_Kategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ToDo" EntityType="Self.Tbl_ToDo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Uye" EntityType="Self.Tbl_Uye" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Islem" Association="Self.FK_Tbl_ToDo_Tbl_Islem">
+      <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori" Association="Self.FK_Tbl_ToDo_Tbl_Kategori">
+      <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori1" Association="Self.FK_Tbl_ToDo_Tbl_Kategori1">
+      <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Uye" Association="Self.FK_Tbl_ToDo_Tbl_Uye">
+      <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Uye_Tbl_Islem" Association="Self.FK_Tbl_Uye_Tbl_Islem">
+      <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+      <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

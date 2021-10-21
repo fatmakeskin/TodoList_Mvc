@@ -1,0 +1,40 @@
+﻿
+@using TodoList_Project.Models.Entity
+
+@model List<Tbl_Uye>
+@{
+    ViewBag.Title = "UyeBilgi";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>Profil Bilgi</h2>
+
+<table class="table table-hover">
+
+    <tr>
+        <td>
+            <label style="font-weight:bold"> Ad:</label> @Session["AD"].ToString() 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-weight:bold">  Soyad:</label> @Session["SOYAD"].ToString()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-weight:bold"> Kullanıcı Adı:</label> @Session["KULLANICIADI"].ToString() 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-weight:bold"> Mail Adresi:</label>  @HttpContext.Current.User.Identity.Name 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="font-weight:bold"> Sifre:</label>  @Session["SIFRE"].ToString() 
+        </td>
+    </tr>
+
+</table>

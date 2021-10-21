@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Db_ToDoProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Islem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UYE" Type="Int32" />
+    <Property Name="ISLEM" Type="Int32" />
+    <NavigationProperty Name="Tbl_ToDo" Relationship="Self.FK_Tbl_ToDo_Tbl_Islem" FromRole="Tbl_Islem" ToRole="Tbl_ToDo" />
+    <NavigationProperty Name="Tbl_Uye" Relationship="Self.FK_Tbl_Uye_Tbl_Islem" FromRole="Tbl_Islem" ToRole="Tbl_Uye" />
+  </EntityType>
+  <EntityType Name="Tbl_Kategori">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_ToDo" Relationship="Self.FK_Tbl_ToDo_Tbl_Kategori" FromRole="Tbl_Kategori" ToRole="Tbl_ToDo" />
+  </EntityType>
+  <EntityType Name="Tbl_ToDo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BASLIK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NOTLAR" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TARIH" Type="DateTime" Precision="0" />
+    <Property Name="KATEGORI" Type="Int32" />
+    <Property Name="ISLEM" Type="Int32" />
+    <NavigationProperty Name="Tbl_Islem" Relationship="Self.FK_Tbl_ToDo_Tbl_Islem" FromRole="Tbl_ToDo" ToRole="Tbl_Islem" />
+    <NavigationProperty Name="Tbl_Kategori" Relationship="Self.FK_Tbl_ToDo_Tbl_Kategori" FromRole="Tbl_ToDo" ToRole="Tbl_Kategori" />
+    <Property Name="UYEID" Type="Int32" />
+    <NavigationProperty Name="Tbl_Uye" Relationship="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye" FromRole="Tbl_ToDo" ToRole="Tbl_Uye" />
+  </EntityType>
+  <EntityType Name="Tbl_Uye">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KULLANICIADI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SIFRE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFON" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="HAREKET" Type="Int32" />
+    <NavigationProperty Name="Tbl_Islem" Relationship="Self.FK_Tbl_Uye_Tbl_Islem" FromRole="Tbl_Uye" ToRole="Tbl_Islem" />
+    <NavigationProperty Name="Tbl_ToDo" Relationship="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye" FromRole="Tbl_Uye" ToRole="Tbl_ToDo" />
+  </EntityType>
+  <Association Name="FK_Tbl_ToDo_Tbl_Islem">
+    <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Islem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="ISLEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Uye_Tbl_Islem">
+    <End Role="Tbl_Islem" Type="Self.Tbl_Islem" Multiplicity="0..1" />
+    <End Role="Tbl_Uye" Type="Self.Tbl_Uye" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Islem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Uye">
+        <PropertyRef Name="HAREKET" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_ToDo_Tbl_Kategori">
+    <End Role="Tbl_Kategori" Type="Self.Tbl_Kategori" Multiplicity="0..1" />
+    <End Role="Tbl_ToDo" Type="Self.Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Kategori">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="KATEGORI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Db_ToDoProjectEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Tbl_Islem" EntityType="Self.Tbl_Islem" />
+    <EntitySet Name="Tbl_Kategori" EntityType="Self.Tbl_Kategori" />
+    <EntitySet Name="Tbl_ToDo" EntityType="Self.Tbl_ToDo" />
+    <EntitySet Name="Tbl_Uye" EntityType="Self.Tbl_Uye" />
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Islem" Association="Self.FK_Tbl_ToDo_Tbl_Islem">
+      <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Uye_Tbl_Islem" Association="Self.FK_Tbl_Uye_Tbl_Islem">
+      <End Role="Tbl_Islem" EntitySet="Tbl_Islem" />
+      <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Kategori" Association="Self.FK_Tbl_ToDo_Tbl_Kategori">
+      <End Role="Tbl_Kategori" EntitySet="Tbl_Kategori" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_ToDo_Tbl_Uye" Association="Db_ToDoProjectModel.FK_Tbl_ToDo_Tbl_Uye">
+      <End Role="Tbl_Uye" EntitySet="Tbl_Uye" />
+      <End Role="Tbl_ToDo" EntitySet="Tbl_ToDo" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Tbl_ToDo_Tbl_Uye">
+    <End Type="Db_ToDoProjectModel.Tbl_Uye" Role="Tbl_Uye" Multiplicity="0..1" />
+    <End Type="Db_ToDoProjectModel.Tbl_ToDo" Role="Tbl_ToDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Uye">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_ToDo">
+        <PropertyRef Name="UYEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

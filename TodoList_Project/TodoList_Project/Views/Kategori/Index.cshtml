@@ -1,0 +1,32 @@
+﻿@using TodoList_Project.Models.Entity
+
+@model List<Tbl_Kategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>KATEGORİ ID</th>
+        <th>KATEGORİ ADI</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+
+    </tr>
+
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.ID</td>
+            <td>@k.AD</td>
+            <td><a href="/Kategori/KategoriSil/@k.ID" class="btn btn-danger"> SİL</a></td>
+            <td><a href="/Kategori/KategoriGetir/@k.ID" class="btn btn-success"> GÜNCELLE</a></td>
+
+        </tr>
+    }
+
+</table>
+<a href="/Kategori/KategoriEkle/" class="btn btn-primary"> Yeni Kategori Ekle</a>
+

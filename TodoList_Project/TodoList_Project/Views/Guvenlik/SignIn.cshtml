@@ -1,0 +1,47 @@
+﻿@model TodoList_Project.Models.Entity.Tbl_Uye
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title> ToDo Liste Hoşgeldiniz | Kayıt Ol </title>
+    <link rel="stylesheet" type="text/css" href="~/web/kayıt/style.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="kayit">
+        <h2>Kayıt Ol</h2>
+        @using (Html.BeginForm("SignIn", "Guvenlik", FormMethod.Post))
+        {
+            <div class="pc">
+                <input type="text" required="" name="AD">
+                <span> Adınız</span>
+            </div>
+            <div class="pc">
+                <input type="text" required="" name="SOYAD">
+                <span> Soyadınız</span>
+            </div>
+            <div class="pc">
+                <input type="text" required="" name="MAIL">
+                <span> Mail Adresiniz</span>
+            </div>
+            <div class="pc">
+                <input type="text" required="" name="KULLANICIADI">
+                <span> Kullanıcı Adınız</span>
+            </div>
+            <div class="pc">
+                <input type="password" required="" name="SIFRE">
+                <span>Şifreniz</span>
+            </div>
+            <div class="pc">
+                <button type="submit" value="Gönder">Kayıt Ol</button>
+            </div>
+        }
+        <a href="/Guvenlik/Login/">Giris Yapmak İcin <span>Buraya Tıklayınız</span></a>
+
+    </div>
+</body>
+</html>
+

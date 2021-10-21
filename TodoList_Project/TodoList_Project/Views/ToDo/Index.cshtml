@@ -1,0 +1,38 @@
+﻿@using TodoList_Project.Models.Entity
+@model List<Tbl_ToDo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>TO DO</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Baslık</th>
+        <th>Notlar</th>
+        <th>Tarih</th>
+        <th>Kategori</th>        
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Mail Gönder</th>
+    </tr>
+    @foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.BASLIK</td>
+            <td>@t.NOTLAR</td>
+            <td>@Convert.ToDateTime(t.TARIH).ToString("dd/mm/yyyy")</td>
+            <td>@t.Tbl_Kategori.AD</td>           
+            <td><a href="/ToDo/ToDoSil/@t.ID" class="btn btn-danger">Sil</a></td>
+            <td><a href="/ToDo/ToDoGetir/@t.ID" class="btn btn-success">Güncelle</a></td>
+            <td><a href="/ToDo/mailgonder/@t.Tbl_Uye.ID" class="btn btn-warning">Mail Gönder</a></td>
+
+        </tr>
+
+    }
+</table>
+<a href="/ToDo/ToDoEkle" class="btn btn-primary"> To Do Ekle</a>
+
+
+
